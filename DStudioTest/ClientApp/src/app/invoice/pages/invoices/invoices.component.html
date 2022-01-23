@@ -1,0 +1,58 @@
+<mat-form-field>
+  <input matInput placeholder="Search invoice" #input>
+</mat-form-field>
+
+<div class="spinner-container" *ngIf="data.loading$ | async">
+  <mat-spinner></mat-spinner>
+</div>
+
+<mat-table class="mat-elevation-z8" [dataSource]="data"
+           matSort matSortActive="Account" matSortDirection="asc" matSortDisableClear>
+
+  <ng-container matColumnDef="Created">
+    <mat-header-cell *matHeaderCellDef class="header" mat-sort-header="created">Created</mat-header-cell>
+    <mat-cell *matCellDef="let inv">{{ datepipe.transform(inv.created, 'dd.MM.yyyy HH:mm') }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Account">
+    <mat-header-cell *matHeaderCellDef mat-sort-header="account" class="header">
+      Account
+    </mat-header-cell> 
+    <mat-cell class=""
+              *matCellDef="let inv">{{inv.account}}</mat-cell>
+
+  </ng-container>
+
+  <ng-container matColumnDef="Method">
+    <mat-header-cell *matHeaderCellDef class="header" mat-sort-header="method">Method</mat-header-cell>
+    <mat-cell class=""
+              *matCellDef="let inv">{{ getMethod(inv.method) }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Amount">
+    <mat-header-cell *matHeaderCellDef class="header" mat-sort-header="amount">Amount</mat-header-cell>
+    <mat-cell class=""
+              *matCellDef="let inv">{{inv.amount}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Status">
+    <mat-header-cell *matHeaderCellDef class="header" mat-sort-header="status">Status</mat-header-cell>
+    <mat-cell class=""
+              *matCellDef="let inv">{{ getStatus(inv.status) }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+  <mat-row *matRowDef="let row; columns: displayedColumns"
+           (click)="onRowClicked(row)">
+  </mat-row>
+
+</mat-table>
+
+<mat-paginator [length]="countInvoices" [pageSize]="5"
+               [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+
+<button mat-button class="mat-raised-button mat-primary" (click)="onCreate()">
+  <mat-icon aria-hidden="false" aria-label="Add">note_add</mat-icon>
+  Add Invoice
+</button>

@@ -1,0 +1,93 @@
+<div style="position: relative; left: 0px; top: 0px; width: 400px; border: solid 1px #999;">
+  <div class="div_table" style="border-collapse: collapse; width:100%">
+    <div class="div_table_row" style="text-align:center; font-size:14px;font-weight:bold  ">
+      <div class="div_table_cell" style="text-align:left">
+        <mat-form-field>
+          <mat-label>Account</mat-label>
+          <input matInput placeholder="account" [(ngModel)]="curInvoice.account" [(value)]="curInvoice.account" type="text"
+                 [formControl]="account">
+          <mat-hint align="end">{{curInvoice.account?.length || 0}}/20</mat-hint>
+          <mat-error *ngIf="account.hasError('required')">
+            Account is required
+          </mat-error>
+          <mat-error *ngIf="account.hasError('maxlength')">
+            Max length is 20
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="div_table_row">
+      <div class="div_table_cell" style="text-align:left">
+        <label id="example-radio-group-label">Choose your payment method</label>
+        <mat-radio-group aria-labelledby="example-radio-group-label"
+                         class="example-radio-group"
+                         [(ngModel)]="curInvoice.method"
+                         [(value)]="curInvoice.method">
+          <mat-radio-button class="example-radio-button" *ngFor="let method of methods" [value]="method.value">
+            {{ method.name }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="div_table_row">
+      <div class="div_table_cell" style="text-align:left">
+        <mat-form-field>
+          <mat-label>Amount</mat-label>
+          <input matInput placeholder="amount" [formControl]="amount" [(ngModel)]="curInvoice.amount" [(value)]="curInvoice.amount">
+          <mat-hint>USD</mat-hint>
+          <span matPrefix>$ </span>
+          <span matSuffix>.00</span>
+          <mat-error *ngIf="amount.hasError('required')">
+            Amount is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="div_table_row">
+      <div class="div_table_cell" style="text-align:left">
+        <label id="example-radio-group-label">Choose processing status</label>
+        <mat-radio-group aria-labelledby="example-radio-group-label"
+                         class="example-radio-group"
+                         [(ngModel)]="curInvoice.status"
+                         [(value)]="curInvoice.status">
+          <mat-radio-button class="example-radio-button" *ngFor="let status of statuses" [value]="status.value">
+            {{ status.name }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="div_table_row" style="text-align:center; font-size:14px;font-weight:bold">
+      <div class="div_table_cell" style="text-align:left">
+        <mat-form-field appearance="fill">
+          <mat-label style="padding-right:10px">Created</mat-label>
+          <input matInput [matDatepicker]="dp" [formControl]="date" [(ngModel)]="curInvoice.created" style="font-weight:bold">
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp
+                          startView="multi-year"
+                          (yearSelected)="chosenYearHandler($event)"
+                          (monthSelected)="chosenMonthHandler($event, dp)"
+                          panelClass="example-month-picker"
+                          [startAt]="curInvoice.created">
+          </mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="div_table_row" style="text-align:center; font-size:14px;font-weight:bold  ">
+      <div class="div_table_cell" style="text-align:right">
+        <button mat-button class="mat-raised-button mat-primary" (click)="onBack()">
+          <mat-icon aria-hidden="false" aria-label="Back">arrow_back</mat-icon>
+          Back
+        </button>
+        <button mat-button class="mat-raised-button mat-primary" (click)="onSave()">
+          <mat-icon aria-hidden="false" aria-label="Save">save</mat-icon>
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

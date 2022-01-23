@@ -1,0 +1,38 @@
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0;
+  font-size:12px;
+}
+
+.example-radio-button {
+  margin: 3px;
+  font-size: 12px;
+}
+
+label {
+  font-size: 12px;
+}
+
+.div_table {
+  display: table;
+  border-spacing: 2px;
+  width: 300px;
+}
+
+.div_table_row {
+  display: table-row;
+}
+
+.div_table_cell {
+  display: table-cell;
+  padding: 2px 2px 2px 2px;
+  text-align: center;
+  border-left: solid 1px #eee;
+  border-bottom: solid 1px #feb41b;
+  text-align: center;
+}
+
+.no-bottom {
+  margin-bottom: -1.25em !important;
+}
